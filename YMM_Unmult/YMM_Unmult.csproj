@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Authors>mes51</Authors>
+    <Title>YMM_Unmult</Title>
+    <Copyright>mes51</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Shader\Unmult.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PixelShader Include="Shader\Unmult.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.HLSL.CSharpVB" Version="1.0.2" />
+    <PackageReference Include="Vortice.Direct2D1" Version="2.1.8-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="YukkuriMovieMaker.Controls">
+      <HintPath>..\..\YukkuriMovieMaker_v4\YukkuriMovieMaker.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="YukkuriMovieMaker.Plugin">
+      <HintPath>..\..\YukkuriMovieMaker_v4\YukkuriMovieMaker.Plugin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(IntermediateOutputPath)\Shader\Unmult.cso">
+      <LogicalName>Unmult_Shader.cso</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
