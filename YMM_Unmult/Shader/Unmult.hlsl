@@ -1,9 +1,18 @@
 Texture2D InputTexture : register(t0);
 SamplerState InputSampler : register(s0);
 
+cbuffer constants : register(b0)
+{
+    int backgroundColorType : packoffset(c0);
+}
+
 float4 main(float4 pos : SV_POSITION, float4 posScene : SCENE_POSITION, float4 uv0 : TEXCOORD0) : SV_Target
 {
 	float4 color = InputTexture.Sample(InputSampler, uv0.xy);
+    if (backgroundColorType == 1)
+    {
+        color = float4(1.0 - color.xyz, color.w);
+    }
     float3 p = color.rgb * color.a;
     
     float irate = max(max(p.r, p.g), p.b);
@@ -29,7 +38,14 @@ float4 main(float4 pos : SV_POSITION, float4 posScene : SCENE_POSITION, float4 u
     
     if (ta > 0.0)
     {
-        return float4(t * ta, ta);
+        if (backgroundColorType == 1)
+        {
+            return float4((1.0 - t) * ta, ta);
+        }
+        else
+        {
+            return float4(t * ta, ta);
+        }
     }
     else
     {

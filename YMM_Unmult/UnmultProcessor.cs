@@ -8,7 +8,7 @@ using YukkuriMovieMaker.Commons;
 using YukkuriMovieMaker.Player.Video;
 using YukkuriMovieMaker.Player.Video.Effects;
 
-namespace YMM_Unmult
+namespace mes51.YMM_Unmult
 {
     class UnmultProcessor : IVideoEffectProcessor
     {
@@ -20,9 +20,12 @@ namespace YMM_Unmult
 
         UnmultCustomEffect Effect { get; }
 
-        public UnmultProcessor(IGraphicsDevicesAndContext devices)
+        Unmult Item { get; }
+
+        public UnmultProcessor(IGraphicsDevicesAndContext devices, Unmult item)
         {
             Effect = new UnmultCustomEffect(devices);
+            Item = item;
             if (Effect.IsEnabled)
             {
                 OutputInternal = Effect.Output;
@@ -37,7 +40,7 @@ namespace YMM_Unmult
             }
         }
 
-        public void SetInput(ID2D1Image input)
+        public void SetInput(ID2D1Image? input)
         {
             Input = input;
             if (Effect.IsEnabled)
@@ -48,6 +51,7 @@ namespace YMM_Unmult
 
         public DrawDescription Update(EffectDescription effectDescription)
         {
+            Effect.BackgroundColorType = (int)Item.BackgroundColorType;
             return effectDescription.DrawDescription;
         }
 

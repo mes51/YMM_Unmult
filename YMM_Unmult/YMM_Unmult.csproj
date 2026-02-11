@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Authors>mes51</Authors>
     <Title>YMM_Unmult</Title>
-    <Copyright>mes51</Copyright>
+    <Copyright>2023-2026 mes51</Copyright>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,4 +37,8 @@
       <LogicalName>Unmult_Shader.cso</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="set YMM_PLUGIN_DIR=&quot;$(SolutionDir)..\YukkuriMovieMaker_v4\user\plugin&quot;&#xD;&#xA;&#xD;&#xA;if exist %25YMM_PLUGIN_DIR%25 copy &quot;$(TargetPath)&quot; %25YMM_PLUGIN_DIR%25" />
+  </Target>
 </Project>
